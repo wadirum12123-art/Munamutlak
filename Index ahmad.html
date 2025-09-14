@@ -1,48 +1,449 @@
+<!DOCTYPE html>  <html lang="ar" dir="rtl">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>مخيم محمد مطلق - وادي رم</title>  
+<style>  
+  * {margin:0; padding:0; box-sizing:border-box; font-family:'Tajawal', sans-serif;}  
+  body {scroll-behavior:smooth; background:#f4f4f4; color:#2c3e50;}  /* Header */
+header {
+position:fixed; width:100%; top:0; background:rgba(44,62,80,0.95);
+color:#fff; z-index:1000; padding:15px 20px;
+display:flex; justify-content:space-between; align-items:center; backdrop-filter:blur(5px);
+}
+.menu-icon {font-size:24px; cursor:pointer;}
+nav {display:none; position:absolute; top:60px; right:0; width:200px; background:#333; text-align:center; border-radius:6px;}
+nav a {display:block; padding:12px; color:#fff;}
+nav a:hover {background:#e67e22;}
+nav.show {display:block;}
 
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* Hero */
+#home {
+height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;
+background:url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4noxptp2wBozJfEWiT9VzU_AgCTBfaPHj4Duv6Jwj66PGyAfEAK3jpFeMO04vSwI76ywoR2q11XDH2PCK8dw9LhAHKDqxTNKYYhqtbhhus6wLDGZcAjrKwE_KE6zE8tlmICjpqmx=s1416-w720-h1416-rw') center/cover no-repeat;
+text-align:center; color:#fff; padding:0 20px;
+}
+#home h1 {font-size:3em; margin-bottom:20px; text-shadow:2px 2px 6px #000;}
+#home p {font-size:1.2em; max-width:700px; text-shadow:1px 1px 4px #000; margin-bottom:30px;}
+#home .btn {padding:15px 30px; background:#f39c12; color:#fff; border-radius:30px; font-size:1em; cursor:pointer;}
+#home .btn:hover {background:#e67e22;}
 
-  <!-- العنوان (يظهر في نتائج البحث) -->
-  <title>موقعي الشخصي - تعلم البرمجة</title>
+/* Sections */
+section {padding:120px 20px 50px; display:flex; flex-direction:column; align-items:center; width:100%;}
+section h2 {font-size:2.5em; margin-bottom:40px; color:#2c3e50; text-align:center;}
+#about, #booking {max-width:1000px; text-align:center;}
+#about p, #booking p {margin-bottom:20px; line-height:1.6;}
 
-  <!-- وصف مختصر يظهر تحت العنوان في غوغل -->
-  <meta name="description" content="موقعي يشرح أساسيات البرمجة وتطوير الويب باستخدام HTML و CSS و JavaScript.">
+/* Activities */
+.activities {display:flex; flex-wrap:wrap; justify-content:center; gap:25px; width:100%; max-width:1200px;}
+.activity-card {background:#fff; border-radius:15px; overflow:hidden; width:300px; box-shadow:0 8px 20px rgba(0,0,0,0.15); transition:0.3s;}
+.activity-card:hover {transform:translateY(-10px); box-shadow:0 12px 25px rgba(0,0,0,0.2);}
+.activity-card img {width:100%; height:200px; object-fit:cover;}
+.activity-card .content {padding:20px; text-align:center;}
+.activity-card h3 {margin-bottom:15px; color:#e67e22;}
+.activity-card p {margin-bottom:15px; font-size:0.95em;}
+.activity-card .btn {padding:10px 20px; background:#e67e22; color:#fff; border-radius:25px; transition:0.3s;}
+.activity-card .btn:hover {background:#d35400;}
 
-  <!-- تعليمات لمحركات البحث -->
-  <meta name="robots" content="index, follow">
+/* Modal */
+.modal {display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.6);}
+.modal-content {background:#fff; margin:5% auto; padding:25px; border-radius:12px; width:90%; max-width:800px; max-height:80vh; overflow-y:auto; position:relative;}
+.close {position:absolute; top:10px; left:15px; font-size:28px; cursor:pointer; color:#555;}
+.close:hover {color:red;}
+#modalPrices ul {padding-left:20px; margin:10px 0;}
 
-  <!-- OG tags لمشاركة أجمل على السوشال -->
-  <meta property="og:title" content="موقعي الشخصي - تعلم البرمجة">
-  <meta property="og:description" content="شرح أساسيات البرمجة وتطوير الويب.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://username.github.io/">
-  <meta property="og:image" content="https://username.github.io/images/cover.png">
+/* Location */
+#location iframe {width:80%; height:400px; border-radius:15px; border:0;}
 
-  <!-- أيقونة صغيرة للموقع -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-</head>
-<body>
-  <header>
-    <h1>مرحباً بك في موقعي</h1>
-    <nav>
-      <a href="/">الرئيسية</a> |
-      <a href="/about">من أنا</a> |
-      <a href="/contact">اتصل بي</a>
-    </nav>
-  </header>
+/* Booking Form */
+#booking form {max-width:600px; width:100%; display:flex; flex-direction:column; gap:15px;}
+#booking form input, #booking form select, #booking form textarea {
+width:100%; padding:12px; border-radius:6px; border:1px solid #ccc;
+}
+#booking form button {padding:12px; background:#28a745; color:#fff; border-radius:8px; cursor:pointer; font-size:16px;}
+#booking form button:hover {background:#218838;}
 
-  <main>
-    <section>
-      <h2>تعلم البرمجة بسهولة</h2>
-      <p>هذا الموقع مخصص لتعليم أساسيات تطوير الويب باستخدام HTML و CSS و JavaScript.</p>
-    </section>
-  </main>
+/* Footer */
+footer {background:#2c3e50; color:#fff; text-align:center; padding:20px 0;}
 
-  <footer>
-    <p>© 2025 جميع الحقوق محفوظة - موقعي الشخصي</p>
-  </footer>
-</body>
-</html>
+/* Responsive */
+@media (max-width:768px){
+.activities{flex-direction:column; align-items:center;}
+.activity-card{width:90%;}
+#home h1{font-size:2em;}
+#location iframe{width:100%;}
+}
+</style>
+
+</head>  
+<body>  <!-- Header -->  <header>  
+  <span class="menu-icon" onclick="toggleMenu()">☰ القائمة</span>  
+  <nav id="topNav">  
+    <a href="#home">الرئيسية</a>  
+    <a href="#about">عن المخيم</a>  
+    <a href="#activities">الأنشطة</a>  
+    <a href="#booking">الحجوزات</a>  
+    <a href="#location">الموقع</a>  
+  </nav>  
+</header>  <!-- Hero -->  <section id="home">  
+  <h1>WADI RUM TOUR GUIDE</h1>  
+  <p>أحمد، مرشدنا الخبير، يشارك معرفته العميقة وإرثه الصحراوي الغني، لتجربة أصيلة تتجاوز السياحة التقليدية.</p>  
+  <a href="#booking" class="btn">احجز الآن</a>  
+</section>  <!-- About -->  <section id="about">  
+  <h2>عن المخيم</h2>  
+  <p>رحلاتنا يقودها مرشدون بدو محليون يشاركون معرفتهم العميقة وإرثهم الثقافي، لتجربة صحراوية أصيلة.</p>  
+  <p>نوفر برامج مرنة تناسب اهتماماتك ومستوى لياقتك ووقتك، لضمان مغامرة شخصية لا تُنسى.</p>  
+</section>  <!-- Activities -->  <section id="activities">  
+  <h2>الأنشطة</h2>  
+  <div class="activities">  <h1>البرامج السياحية في وادي رم</h1>
+
+  <!-- نموذج كرت النشاط -->    <div class="activity-card">  
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Half Day Jeep Tour">  
+    <div class="content">  
+      <h3>Half Day Jeep Tour</h3>  
+      <p>Experience the highlights of Wadi Rum in this 4-hour jeep tour, visiting key sites and enjoying the desert landscape.</p>  
+      <a class="btn"  
+         data-title="Half Day Jeep Tour"  
+         data-duration="4 hours"  
+         data-prices='<DOCTYPE html!>  
+<html lang="ar" dir="rtl">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>جدول الأسعار</title>  
+  <script src="https://cdn.tailwindcss.com"></script>  
+</head>  
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">    <div class="overflow-x-auto">  
+    <table class="table-auto border-collapse border border-gray-300 shadow-md rounded-xl text-center text-gray-700">  
+      <thead class="bg-yellow-50">  
+        <tr>  
+          <th class="border border-gray-300 px-6 py-3">الفئة</th>  
+          <th class="border border-gray-300 px-6 py-3">السعر</th>  
+        </tr>  
+      </thead>  
+      <tbody>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">1-3 أشخاص</td>  
+          <td class="border border-gray-300 px-6 py-3">50 JOD</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">4-6 أشخاص</td>  
+          <td class="border border-gray-300 px-6 py-3">45 JOD</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">7 أشخاص أو أكثر</td>  
+          <td class="border border-gray-300 px-6 py-3">35 JOD</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">الأطفال (5-12 سنة)</td>  
+          <td class="border border-gray-300 px-6 py-3">نصف السعر</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">الأطفال (0-5 سنوات)</td>  
+          <td class="border border-gray-300 px-6 py-3">مجاني</td>  
+        </tr>  
+      </tbody>  
+    </table>  
+  </div>  </body>  
+</html>'  
+         data-program="Detailed Program  
+Everything you need to know  
+Your half-day adventure begins at our meeting point in Wadi Rum Village, where you'll meet your Bedouin guide and board your 4x4 jeep. After a brief introduction and safety information, you'll set off into the desert to explore its wonders.  Lawrence Spring:
+Named after T.E. Lawrence (Lawrence of Arabia), this natural spring nestled in the mountainside offers panoramic views of the desert. Your guide will explain the historical significance of this site and its connection to Lawrence's adventures in the region.
+
+Khazali Canyon:
+Explore this narrow fissure in the mountain, famous for its ancient Thamudic and Nabataean inscriptions. These petroglyphs, dating back thousands of years, depict hunting scenes, animals, and humans, offering a glimpse into the area's rich history.
+
+Red Sand Dunes:
+Experience the soft, red sand dunes that Wadi Rum is famous for. You'll have time to climb the dunes, take photos, and enjoy the panoramic views from the top. The contrast between the red sand and the blue sky creates a stunning visual experience.
+
+Little Bridge:
+Visit one of Wadi Rum's natural rock bridges. While smaller than the famous Burdah Bridge, this natural formation is still impressive and offers excellent photo opportunities. Those feeling adventurous can climb to the top of the bridge.
+
+Bedouin Tea Break:
+Enjoy a traditional Bedouin tea break in the shade of a beautiful rock formation. This is a perfect opportunity to rest, chat with your guide about Bedouin culture, and absorb the peaceful atmosphere of the desert.
+
+After visiting these highlights, your guide will return you to Wadi Rum Village, completing your 4-hour desert adventure. Throughout the tour, there will be plenty of stops for photos and short walks to explore the surroundings up close."
+data-includes="
+Included:
+Transportation in a 4x4 jeep with Bedouin driver/guide
+English-speaking guide
+Bottled water
+Traditional Bedouin tea
+All entrance fees to sites mentioned in the itinerary
+Pick-up and drop-off at Wadi Rum Visitor Center
+Accommodation in our tented camp
+Meals Breakfast & Dinner (Lunch on request)"
+data-excludes="
+Not Included:
+Personal expenses and souvenirs
+Gratuities for guides (optional but appreciated)
+Travel insurance
+Transportation to/from Wadi Rum (can be arranged for an additional fee)
+Anything not mentioned in the "Included" list"
+data-link="https://wa.me/9627XXXXXXX?text=أرغب%20في%20حجز%20جولة%20جيب%20نصف%20يوم">
+احجز الآن
+</a>
+</div>
+
+  </div>    <div class="activity-card">  
+    <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff" alt="Full Day Jeep Tour">  
+    <div class="content">  
+      <h3>Full Day Jeep Tour</h3>  
+      <p>A comprehensive 7-hour jeep tour exploring the vast beauty of Wadi Rum, including hidden canyons and ancient inscriptions.</p>  
+      <a class="btn"  
+         data-title="Full Day Jeep Tour"  
+         data-duration="7 hours"  
+         data-prices='  
+<DOCTYPE html>  
+<html lang="ar" dir="rtl">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>جدول الأسعار</title>  
+  <script src="https://cdn.tailwindcss.com"></script>  
+</head>  
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">    <div class="overflow-x-auto">  
+    <table class="table-auto border-collapse border border-gray-300 shadow-md rounded-xl text-center text-gray-700">  
+      <thead class="bg-yellow-50">  
+        <tr>  
+          <th class="border border-gray-300 px-6 py-3">الفئة</th>  
+          <th class="border border-gray-300 px-6 py-3">السعر</th>  
+        </tr>  
+      </thead>  
+      <tbody>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">1-3  Persons</td>  
+          <td class="border border-gray-300 px-6 py-3">50 JOD</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">4-6 Persons</td>  
+          <td class="border border-gray-300 px-6 py-3">45 JOD</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">7 or more Persons</td>  
+          <td class="border border-gray-300 px-6 py-3">35 JOD</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">Children (5-12 Years)</td>  
+          <td class="border border-gray-300 px-6 py-3">Half Price</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">Kids from 0-5 Years)</td>  
+          <td class="border border-gray-300 px-6 py-3">Free </td>  
+        </tr>  
+      </tbody>  
+    </table>  
+  </div>  </body>  
+</html>'  
+         data-program="Detailed Itinerary:  Starting Point
+
+Your adventure begins at Wadi Rum Village, where you will meet your Bedouin guide. After a brief introduction and safety instructions, you will set off in a 4×4 Jeep to explore the desert.
+
+Highlights:
+
+1. Lawrence Spring
+
+
+
+Enjoy panoramic desert views and learn about the story of Lawrence of Arabia and his role in the Arab Revolt.
+
+2. Khazali Canyon
+
+
+
+Explore narrow canyons featuring ancient Thamudic and Nabatean rock inscriptions, explained in detail by your guide.
+
+3. Red Sand Dunes
+
+
+
+Free time to climb the dunes, take photos, and admire the stunning contrast of red sand against the blue sky.
+
+4. Um Fruth Rock Bridge
+
+
+
+Safely climb this natural rock bridge, 15 meters high, with incredible panoramic photo opportunities.
+
+5. Bedouin Lunch in the Desert
+
+
+
+Enjoy fresh bread, hummus, salads, grilled meat or vegetarian options, and fresh fruit in a shaded, scenic location.
+
+6. Mushroom Rock
+
+
+
+Marvel at this unique rock formation shaped like a giant mushroom by centuries of natural erosion.
+
+7. Burdah Rock Bridge (Viewpoint)
+
+
+
+Visit a viewpoint to admire one of Wadi Rum’s highest natural arches while your guide explains its geological formation.
+
+8. Abu Kheshbeh Valley
+
+
+
+Take a short walk in this colorful sandstone valley and relax amidst the serene desert landscape.
+
+9. Sunset Viewing
+
+
+
+Conclude your day at a perfect spot to watch the sun set over the desert, with the red and orange hues of the mountains providing a magical farewell.
+
+After enjoying the sunset, your guide will return you to Wadi Rum Village, completing a full-day adventure of around 7 hours, with multiple stops for photography, short walks, and relaxation.
+"
+data-includes="
+Included:
+
+1-4×4 Jeep transportation with Bedouin driver/guide
+
+2-English-speaking guide
+
+3-Bottled water
+
+4-Traditional Bedouin lunch and tea
+
+5-All entrance fees for listed sites
+
+6*Pickup and drop-off at Wadi Rum Visitor Center
+
+7-Accommodation in Bedouin camp tents
+
+8-Breakfast and dinner (lunch upon request)"
+data-excludes="
+Not Included:
+
+1-Personal expenses and souvenirs
+
+2-Tips for guides (optional)
+
+3-Travel insurance
+
+4-Transportation to/from Wadi Rum (available for extra fee)
+
+5-Specialized climbing or hiking gear
+
+6-Anything not listed under “Included”"
+data-link="https://wa.me/9627XXXXXXX?text=أرغب%20في%20حجز%20جولة%20جيب%20يوم%20كامل">
+احجز الآن
+</a>
+</div>
+
+  </div>    <div class="activity-card">  
+    <img src="https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=450,height=450,dpr=2/tour_img/5da3a9de5589c34403a2ff2a54120c2b133921fd2d8efa02e24e0f3f7258987f.jpg" alt="Camel Ride">  
+    <div class="content">  
+      <h3>Camel Ride</h3>  
+      <p>Witness the desert's beauty at sunrise or sunset on a peaceful camel ride, guided by our experts for an unforgettable experience.</p>  
+      <a class="btn"  
+         data-title="Camel Ride"  
+         data-duration="2-3 hours ride"  
+         data-prices='<ul><li>ساعة: 20 دينار</li><li>ساعتان: 30 دينار</li><li>نصف يوم: 50 دينار</li></ul>'  
+         data-program="Detailed Program  
+Everything you need to know  
+Your camel ride experience begins with a brief introduction to these magnificent animals and basic instructions on how to mount and ride them safely. Our experienced guides will help you get comfortable on your camel before setting off into the desert.  As you journey through Wadi Rum on camelback, your guide will lead you to scenic spots and share stories about Bedouin life and the desert environment. The route is carefully chosen to showcase the best views and most interesting features of the landscape.
+
+For sunset rides, we time the journey to reach a perfect viewpoint just as the sun begins to set, allowing you to witness the changing colors of the desert as day turns to night. Similarly, sunrise rides offer the magical experience of watching the desert awaken as the first light of day spreads across the landscape.
+
+Throughout the ride, there will be opportunities to stop for photos and to simply enjoy the peace and beauty of the desert. Your guide will be happy to take pictures of you on your camel with the stunning Wadi Rum backdrop."
+data-includes="
+Included:
+Professional Bedouin guide
+Well-trained, gentle camels
+Safety briefing and riding instructions
+Water during the ride
+Traditional Bedouin tea at a rest stop
+Photo opportunities at scenic locations
+Meals Breakfast & Dinner (Lunch on request)"
+data-excludes="
+Not Included:
+Transportation to/from Wadi Rum Village (can be arranged for an additional fee)
+Personal expenses and souvenirs
+Gratuities for guides (optional but appreciated)
+Travel insurance"
+data-link="https://wa.me/9627XXXXXXX?text=أرغب%20في%20حجز%20جولة%20ركوب%20الجمال">
+احجز الآن
+</a>
+</div>
+
+  </div>    <div class="activity-card">  
+    <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff" alt="Full Day Jeep Tour">  
+    <div class="content">  
+      <h3>Jebel Khash Route</h3>  
+      <p>Follow the Jebel Khash path, where nature’s artistry creates unforgettable vistas and rock formations.</p>  
+      <a class="btn"  
+         data-title="Jebel Khash Route"  
+         data-duration="Full day"  
+         data-prices='  
+<DOCTYPE html>  
+<html lang="ar" dir="rtl">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>جدول الأسعار</title>  
+  <script src="https://cdn.tailwindcss.com"></script>  
+</head>  
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">    <div class="overflow-x-auto">  
+    <table class="table-auto border-collapse border border-gray-300 shadow-md rounded-xl text-center text-gray-700">  
+      <thead class="bg-yellow-50">  
+        <tr>  
+          <th class="border border-gray-300 px-6 py-3">الفئة</th>  
+          <th class="border border-gray-300 px-6 py-3">السعر</th>  
+        </tr>  
+      </thead>  
+      <tbody>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">1-3  Persons</td>  
+          <td class="border border-gray-300 px-6 py-3">50 JOD</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">4-6 Persons</td>  
+          <td class="border border-gray-300 px-6 py-3">45 JOD</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">7 or more Persons</td>  
+          <td class="border border-gray-300 px-6 py-3">35 JOD</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">Children (5-12 Years)</td>  
+          <td class="border border-gray-300 px-6 py-3">Half Price</td>  
+        </tr>  
+        <tr>  
+          <td class="border border-gray-300 px-6 py-3">Kids from 0-5 Years)</td>  
+          <td class="border border-gray-300 px-6 py-3">Free </td>  
+        </tr>  
+      </tbody>  
+    </table>  
+  </div>  </body>  
+</html>'  
+         data-program="Daily Program  Morning Departure – 9:00 AM
+
+Begin your adventure from Rum Village as we set off on a scenic jeep ride across the desert. Along the way, we’ll visit iconic sites such as Lawrence’s Spring, Khazali Canyon, and the Small Arch, immersing you in the beauty and history of Wadi Rum.
+
+Desert Jeep Journey – 9:00 AM to 12:00 PM
+
+Our 4x4 will navigate winding canyons and towering sandstone cliffs, revealing ancient inscriptions and remarkable rock formations. We’ll make stops at panoramic viewpoints for photos and enjoy a traditional Bedouin tea, soaking in the desert atmosphere.
+
+Lunch – 12:00 PM to 1:00 PM
+
+Take a break for a delicious lunch in the shade at the foot of Jebel Khash, surrounded by stunning mountain views. Your guide will brief you on the upcoming climb and safety tips.
+
+Jebel Khash Adventure – 1:00 PM to 4:00 PM
+
+The afternoon features a guided 3-hour climb up Jebel Khash. The route includes moderate scrambling suitable for those in good physical condition. At the summit, you’ll be rewarded with panoramic 360-degree views of Wadi Rum before descending back to Rum Village to conclude the day.
+"
+data-includes="
+Included:
+
+1-4×4 Jeep transportation with Bedouin driver/guide
+
+2-English-speaking guide
+
+3-Bottled water
+
+4-Traditional Bed
